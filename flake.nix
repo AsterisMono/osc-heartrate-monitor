@@ -32,6 +32,12 @@
               inherit inputs pkgs;
               modules = [
                 {
+                  packages = with pkgs; (lib.optionals stdenv.isDarwin (
+                    [
+                      darwin.apple_sdk.frameworks.AppKit
+                      darwin.apple_sdk.frameworks.CoreBluetooth
+                    ]
+                  ));
                   languages.rust = {
                     enable = true;
                     channel = "stable";
